@@ -2,14 +2,14 @@
 
 ############################# Input ############################################
 input:
-  jsonbeat:
-    # The value of the json_field_to_es_type field in the JSON event blob
-    #   which is read from STDIN will be used to set the "type" of the
-    #   event blob that will be sent to elasticsearch.  This allows
-    #   the handling of many different types of JSON events,
-    #   allowing each type to be sent as a different elasticsearch
-    #   type.
-    JsonFieldToEsType: event_type
+  beatconfig:
+    # The value of the json_elasticsearch_type_field field in the JSON
+    #   event blob which is read from STDIN will be used to set the
+    #   "type" of the event blob that will be sent to elasticsearch.
+    #   This allows the handling of many different types of JSON
+    #   events, allowing each type to be sent as a different
+    #   elasticsearch type.
+    json_elasticsearch_type_field: type
 
 
 ###############################################################################

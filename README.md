@@ -1,3 +1,5 @@
+# Work in Progress (WIP)
+
 # Jsonbeat
 
 Jsonbeat is a [Beat](https://www.elastic.co/products/beats) used for
@@ -5,6 +7,51 @@ reading json events (on a single line) through STDIN, and outputting
 the events through the beats framework.  This is kind of like
 filebeats, except Jsonbeat will parse json events, and send them to
 the index and as the event-type that you specify.
+
+## Testing
+
+TODO: break up functions and write tests
+
+```
+# well-formed event
+make app-build && echo '{ "event_type": "mytype", "a":"b", "c": { "d":"e"}}'| ./bin/jsonbeat  -c ./etc/jsonbeat.yaml.private  -e -v
+# event with unknown type
+make app-build && echo '{ "event_type2": "mytype", "a":"b", "c": { "d":"e"}}'| ./bin/jsonbeat  -c ./etc/jsonbeat.yaml.private  -e -v
+# unparseable JSON event
+make app-build && echo '{ "event_type2": "mytype", b"a":"b", "c": { "d":"e"}}'| ./bin/jsonbeat  -c ./etc/jsonbeat.yaml.private  -e -v
+```
+
+## Input
+
+Single line event
+
+```
+'{ "event_type": "mytype", "a":"b", "c": { "d":"e"}}'
+```
+
+## Output
+
+```
+{
+  "@timestamp": "2016-03-21T19:20:21.630Z",
+  "beat": {
+    "hostname": "vagrant-ubuntu-trusty-64",
+    "name": "vagrant-ubuntu-trusty-64"
+  },
+  "count": "1",
+  "params": {
+    "Json_Elasticsearch_Type_Field": "event_type"
+  },
+  "payload": {
+    "a": "b",
+    "c": {
+      "d": "e"
+    },
+    "event_type": "mytype"
+  },
+  "type": "mytype"
+}
+```
 
 
 ## Edit the configuration file
