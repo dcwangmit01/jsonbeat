@@ -1,0 +1,14 @@
+# Compiled Object files, Static and Dynamic libs (Shared Objects)
+bin/*
+pkg/*
+
+#######################################
+# Ignore all files that must be encrypted
+*.private
+
+#######################################
+# Ignore all under src
+src/*
+# But exclude src/jsonbeat from being ignored
+!src/jsonbeat/*
+#######################################
