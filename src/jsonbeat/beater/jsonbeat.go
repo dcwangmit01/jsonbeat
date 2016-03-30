@@ -71,9 +71,13 @@ func (j *JsonBeat) Run(b *beat.Beat) error {
 
 		// figure out the payload and type
 		if err != nil { // unparseable JSON events
+			logp.Err("Not sending unparsable-JSON: line=%s err=%v", s.Text(), err)
+			continue
+		/*
 			logp.Err("Sending unparsable JSON as raw unparseable_event: line=%s err=%v", s.Text(), err)
 			esTypeVal = "unparseable_event"
 			payload = s.Text()
+                */
 		} else { // parseable JSON events
 			m := f.(map[string]interface{}) // cast
 			val, ok := m[esTypeField]
